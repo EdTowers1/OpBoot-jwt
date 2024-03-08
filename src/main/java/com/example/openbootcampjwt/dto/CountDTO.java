@@ -9,19 +9,11 @@ public class CountDTO {
 
     public CountDTO(Long count){ this.count = count; }
 
-    public Long getCount() {
-        return count;
-    }
+    public Long getCount() { return count; }
 
-    public void setCount(Long count) {
-        this.count = count;
-    }
+    public void setCount(Long count) { this.count = count; }
 
-    public String getMessage() {
-        return message;
-    }
+    public String getMessage() { return message; }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
+    public void setMessage(String message) { this.message = message; }
 }

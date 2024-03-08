@@ -41,7 +41,26 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public Car save(Car car) {
-        return null;
+        log.info("Creating / Updating car");
+        if(!this.validateCar(car))
+            return null;
+        
+        Car carDB = this.carRepository.save(car);
+
+        return carDB;
+    }
+
+    private boolean validateCar(Car car) {
+        if(car == null){
+            log.warn("Triying to create null car");
+            return false;
+        }
+
+        if(car.getDoors() == null || car.getDoors() < MIN_DOORS){
+            log.warn("Triyin to create car with not allowed numbers of doors");
+            return false;
+        }
+        return true;
     }
 
     @Override
