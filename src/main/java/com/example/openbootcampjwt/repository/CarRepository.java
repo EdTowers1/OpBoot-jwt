@@ -14,7 +14,7 @@ public interface CarRepository  extends JpaRepository<Car, Long> {
 
     List<Car> finByManufacturerAndModel(String manufacturer, String model);
 
-    List<Car> finByDoorsGreaterThanEqual(Integer doors);
+    List<Car> findByDoorsGreaterThanEqual(Integer doors);
 
     List<Car> findByModelContaining(String model);
 

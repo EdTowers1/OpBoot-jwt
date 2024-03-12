@@ -5,6 +5,9 @@ import com.example.openbootcampjwt.repository.CarRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,9 +17,7 @@ import java.util.Optional;
 public class CarServiceImpl implements CarService {
 
     private static final Integer MIN_DOORS = 3;
-
     private final Logger log = LoggerFactory.getLogger(CarServiceImpl.class);
-
     private final CarRepository carRepository;
 
     public CarServiceImpl(CarRepository carRepository){ this.carRepository =carRepository; }
@@ -65,22 +66,43 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public void deleteById(Long id) {
+        log.info("Deleting by id");
+        if(id == null || id < 0 || id == 0) {
+            log.warn("Trying to delete car with wrong id");
+            return;
+        }
 
+        try{
+            this.carRepository.deleteById(id);
+        }catch (Exception e){
+            log.error("Error trying to delete car by id {}", id, e);
+        }
     }
 
     @Override
     public void deleteAll() {
-
+        log.info("Deleting cars");
+        this.carRepository.deleteAll();
     }
 
     @Override
     public void deleteAll(List<Car> cars) {
-
+        log.info("Deleting all cars");
+        if(CollectionUtils.isEmpty(cars)) {
+            log.warn("Trying to delete an empty or null car list");
+            return;
+        }
+        this.carRepository.deleteAll(cars);
     }
 
     @Override
     public void deleteAllById(List<Long> ids) {
-
+        log.info("Deleting car by id");
+        if(CollectionUtils.isEmpty(ids)) {
+            log.warn("Trying to delete an empty or null car list");
+            return;
+        }
+        this.carRepository.deleteAllById(ids);
     }
 
     @Override
@@ -96,41 +118,48 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public List<Car> findByManufacturerAndModel(String manufacturer, String model) {
-        return null;
+
+        if(!StringUtils.hasLength(manufacturer) || !StringUtils.hasLength(model))
+            return new ArrayList<>();
+
+        return this.carRepository.finByManufacturerAndModel(manufacturer, model);
     }
 
     @Override
     public List<Car> findByDoorsGreaterThanEqual(Integer doors) {
-        return null;
+        if(doors == null || doors < 0)
+            return new ArrayList<>();
+
+        return this.carRepository.findByDoorsGreaterThanEqual(doors);
     }
 
     @Override
     public List<Car> findByModelContaining(String model) {
-        return null;
+        return this.carRepository.findByModelContaining(model);
     }
 
     @Override
     public List<Car> findByYearIn(List<Integer> years) {
-        return null;
+        return this.carRepository.findByYearIn(years);
     }
 
     @Override
     public List<Car> findByYearBetween(Integer startYear, Integer endYear) {
-        return null;
+        return this.carRepository.findByYearBetween(startYear, endYear);
     }
 
     @Override
     public List<Car> findByReleaseDateBetween(LocalDate startDate, LocalDate endDate) {
-        return null;
+        return this.carRepository.findByReleaseDateBetween(startDate, endDate);
     }
 
     @Override
     public List<Car> findByAvailableTrue() {
-        return null;
+        return this.carRepository.findByAvailableTrue();
     }
 
     @Override
     public Long deleteAllByAvailableFalse() {
-        return null;
+        return this.carRepository.deleteAllByAvailableFalse();
     }
 }
