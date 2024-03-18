@@ -1,6 +1,6 @@
 package com.example.openbootcampjwt.security.payload;
 
-public class RegisteredRequest {
+public class RegisterRequest {
 
     private String username;
     private String email;
