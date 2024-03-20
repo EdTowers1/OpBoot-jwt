@@ -1,5 +1,6 @@
 package com.example.openbootcampjwt.rest;
 
+import com.example.openbootcampjwt.repository.UserRepository;
 import com.example.openbootcampjwt.security.payload.JwtResponse;
 import com.example.openbootcampjwt.security.payload.LoginRequest;
 import com.example.openbootcampjwt.security.payload.MessageResponse;
@@ -46,7 +47,7 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<MessageResponse> register(@RequestBody RegisterRequest singUpRequest){
 
-        if(userRepository.)
+        if(userRepository.existsBy(null))
 
     }
 }
