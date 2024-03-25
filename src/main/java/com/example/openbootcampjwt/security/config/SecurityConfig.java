@@ -1,6 +1,8 @@
 package com.example.openbootcampjwt.security.config;
 
 import com.example.openbootcampjwt.security.jwt.JwtAuthEntryPoint;
+import com.example.openbootcampjwt.security.jwt.JwtRequestFilter;
+import com.example.openbootcampjwt.security.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

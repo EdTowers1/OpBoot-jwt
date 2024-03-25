@@ -25,13 +25,17 @@ public class CarController {
     }
 
     @GetMapping("/cars/{id}")
-    @ApiOperation("Buscar choche por id")
+    @ApiOperation("Buscar carro por id")
     public ResponseEntity<Car> findById(@ApiParam("Clave primaria car") @PathVariable Long id){
 
         log.info("Rest request to find one car");
 
-        Optional<Car> carOptiona = this.carService.findById(id);
-    }
-    
+        Optional<Car> carOptional = this.carService.findById(id);
 
+        if(carOptional.isPresent()){
+            return ResponseEntity.ok(carOptional.get());
+        }
+
+        return ResponseEntity.notFound().build();    
+    }
 }
