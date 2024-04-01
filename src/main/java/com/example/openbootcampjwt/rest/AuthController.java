@@ -1,5 +1,6 @@
 package com.example.openbootcampjwt.rest;
 
+import com.example.openbootcampjwt.domain.User;
 import com.example.openbootcampjwt.repository.UserRepository;
 import com.example.openbootcampjwt.security.jwt.JwtTokenUtil;
 import com.example.openbootcampjwt.security.payload.JwtResponse;
@@ -48,8 +49,27 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<MessageResponse> register(@RequestBody RegisterRequest singUpRequest){
 
-        if(userRepository.existsBy(null))
-        
+        //username
+        if(userRepository.existsByUsername(singUpRequest.getUsername())){
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Usrename is already taken!"));
+        }
+
+        //email
+        if(userRepository.existsByEmail(singUpRequest.getEmail())){
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Email is already in use!"));
+        }
+
+        User user = new User(singUpRequest.getUsername(),
+                singUpRequest.getEmail(),
+                passwordEncoder.encode(singUpRequest.getPassword()));
+
+        userRepository.save(user);
+
+        return ResponseEntity.ok(new MessageResponse("User registered successfully"));
 
     }
 }
