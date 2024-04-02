@@ -46,9 +46,9 @@ public class JwtTokenUtil {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
             return true;
         } catch (SignatureException e){
-            log.error("Invalid JWT sginature: {}", e.getMessage());
+            log.error("Invalid JWT signature: {}", e.getMessage());
         } catch (MalformedJwtException e){
-            log.error("Inavlid JWT Token: {}", e.getMessage());
+            log.error("Invalid JWT Token: {}", e.getMessage());
         } catch (ExpiredJwtException e){
             log.error("JWT Token is expired: {}", e.getMessage());
         }catch (UnsupportedJwtException e){

@@ -53,7 +53,7 @@ public class AuthController {
         if(userRepository.existsByUsername(singUpRequest.getUsername())){
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Error: Usrename is already taken!"));
+                    .body(new MessageResponse("Error: Username is already taken!"));
         }
 
         //email
