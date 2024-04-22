@@ -121,7 +121,7 @@ public class CarServiceImpl implements CarService {
         if(!StringUtils.hasLength(manufacturer) || !StringUtils.hasLength(model))
             return new ArrayList<>();
 
-        return this.carRepository.finByManufacturerAndModel(manufacturer, model);
+        return this.carRepository.findByManufacturerAndModel(manufacturer, model);
     }
 
     @Override
